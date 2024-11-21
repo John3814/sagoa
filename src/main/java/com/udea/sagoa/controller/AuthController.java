@@ -1,10 +1,11 @@
 package com.udea.sagoa.controller;
 
 
-import com.udea.sagoa.dominio.user.interfaces.UserAuthData;
+import com.udea.sagoa.dominio.user.dto.UserAuthData;
 import com.udea.sagoa.dominio.user.model.User;
-import com.udea.sagoa.infra.security.JWTData;
+import com.udea.sagoa.infra.security.DatosJWttoken;
 import com.udea.sagoa.infra.security.TokenService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,11 +28,11 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<JWTData> autenticarUsuario(@RequestBody UserAuthData userAuthData ){
-        Authentication authToken= new UsernamePasswordAuthenticationToken(userAuthData.username(),userAuthData.password());
+    public ResponseEntity<DatosJWttoken> autenticarUsuario(@RequestBody @Valid UserAuthData userAuthData ){
+        Authentication authToken= new UsernamePasswordAuthenticationToken(userAuthData.userName(),userAuthData.password());
         var userAuhtenticate = authenticationManager.authenticate(authToken);
-        var jwt = tokenService.makeToken((User) userAuhtenticate.getPrincipal());
-        return ResponseEntity.ok(new JWTData(jwt));
+        var JWttoken = tokenService.makeToken((User) userAuhtenticate.getPrincipal());
+        return ResponseEntity.ok(new DatosJWttoken(JWttoken));
     }
 
 }

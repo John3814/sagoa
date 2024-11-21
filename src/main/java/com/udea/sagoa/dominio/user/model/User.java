@@ -3,6 +3,7 @@ package com.udea.sagoa.dominio.user.model;
 import com.udea.sagoa.dominio.contract.model.Contract;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
@@ -20,6 +21,7 @@ public class User implements UserDetails{
     @Column(unique = true, nullable = false, name = "user_name")
     private String username;
 
+    @Setter
     @Column(nullable = false)
     private String password;
 
@@ -48,6 +50,11 @@ public class User implements UserDetails{
 
     }
 
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -55,22 +62,31 @@ public class User implements UserDetails{
     }
 
     @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+    @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

@@ -15,5 +15,5 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:target/cucumber-reports.html")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "com.udea.sagoa")
 public class CucumberIntegrationTest {
-
 }
+

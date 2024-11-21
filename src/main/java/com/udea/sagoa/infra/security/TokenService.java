@@ -7,12 +7,14 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.udea.sagoa.dominio.user.model.User;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+
 
 @Service
 public class TokenService {
@@ -23,7 +25,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             return JWT.create()
-                    .withIssuer("sagoa")
+                    .withIssuer("udea")
                     .withSubject(user.getUsername())
                     .withClaim("id",user.getId())
                     .withClaim("role", user.getRole().name())
@@ -43,7 +45,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(apiSecret);
             verifier = JWT.require(algorithm)
-                    .withIssuer("sagoa")
+                    .withIssuer("udea")
                     .build()
                     .verify(token);
 

@@ -39,7 +39,8 @@ public class SecurityConfig{
                     rQ.requestMatchers(HttpMethod.GET, "/example/admin").hasRole(ADMIN.name());
                     rQ.requestMatchers(HttpMethod.GET, "/example/customer").hasAnyAuthority(CUSTOMER_READ.name(), ADMIN_READ.name());
                     rQ.requestMatchers("/users/**").permitAll();
-                    rQ.requestMatchers("/auth/**").permitAll();
+                    rQ.requestMatchers("/health/**").permitAll();
+                    rQ.requestMatchers("/auth/login").permitAll();
                     rQ.anyRequest().authenticated();
                 })
                 .cors(Customizer.withDefaults())
